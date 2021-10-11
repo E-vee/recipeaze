@@ -1,37 +1,32 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: path.resolve(__dirname, './client/index.js'),
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js',
-        publicPath: '/',
-    },
-    devtool: 'eval-source-map',
     mode: 'development',
+    entry: './client/index.js',
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: 'bundle.js',
+    },
     module: {
         rules: [
             {
-                test: /\.jsx?/,
+                test: /jsx?$/,
                 exclude: /node_modules/,
-                use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/env', '@babel/react']
-                    }
-                }]
+                loader: 'babel_loader',
+                query: {
+                    presets: ['@babel/env', '@babel/react'],
+                },
             },
             {
-                test: /\.css$/i,
+                test: /css$/,
                 exclude: /node_modules/,
-                use: ["style-loader", "css-loader"]
-            }
+                loaders: ['style-loader', 'css-loader',]
+            },
         ],
     },
     devServer: {
         static: {
-            directory: path.resolve(__dirname, 'build'),
+            directory: path.resolve(__dirname, 'client'),
             publicPath: '/',
         },
         compress: true,
@@ -47,11 +42,6 @@ module.exports = {
             }
         }
     },
-    plugins: [
-        new HTMLWebpackPlugin({
-            template: './index.html',
-        })
-    ],
     resolve: {
         extensions: ['.js', '.jsx'],
     },
