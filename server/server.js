@@ -6,7 +6,12 @@ const app = express();
 
 
 app.use(express.json());
-app.use(express.static(path.resolve(__dirname, '../assests')));
+app.use(express.static(path.resolve(__dirname, '../assets')));
+app.use(cors());
+
+app.get('/', (req, res) => {
+  res.render('../client/index.html');
+})
 
 
 
