@@ -30,12 +30,12 @@ ingredientController.addIngredient = (req, res, next) => {
   try {
     const name = req.body.name;
     const userID = req.body.userID;
-    const type = req.body.type;
+    const genre = req.body.genre;
     const ingredientAddQuery = `
       INSERT INTO ingredients
-      (name, user_id, type)
+      (name, genre, user_id)
       VALUES
-      (${name}, ${userID}, ${type})
+      (${name}, ${genre}, ${userID})
       RETURNING name
     `;
     db.query(ingredientAddQuery)
