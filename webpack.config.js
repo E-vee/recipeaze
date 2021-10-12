@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+<<<<<<< HEAD
   mode: 'development',
   entry: './client/index.js',
   output: {
@@ -16,6 +17,35 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: ['@babel/preset-env', '@babel/preset-react'],
+=======
+    mode: 'development',
+    entry: './client/index.js',
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: 'bundle.js',
+    },
+    module: {
+        rules: [
+            {
+                test: /jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/env', '@babel/react'],
+                },
+            },
+            {
+                test: /css$/,
+                exclude: /node_modules/,
+                use: ['style-loader', 'css-loader',]
+            },
+        ],
+    }, 
+    devServer: {
+        static: {
+          directory: path.resolve(__dirname, 'client'),
+          publicPath: '/',
+>>>>>>> 392ba35daddea0268143f72b48bcea86e6860e21
         },
       },
       {
