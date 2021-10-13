@@ -1,4 +1,4 @@
-const db = require('../models/models');
+const db = require('../models/recipeazeModel');
 
 const authController = {};
 

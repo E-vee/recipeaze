@@ -1,6 +1,6 @@
 const express = require('express');
 const recipeRouter = express.Router();
-const recipeController = require('../controllers/ingredientController');
+const recipeController = require('../controllers/recipeController');
 
 // Returns list of drinks to client
   // Includes name, picture, and id

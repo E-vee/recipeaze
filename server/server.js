@@ -17,28 +17,10 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '../assets')));
 
 // Route to view current cabinet contents
-  // Request should include userID
-  // Response should return all ingredient names and ids where user_id is current user
-app.get('/ingredients', cabinetRouter);
-
-// Route to add ingredient to cabinet
-  // Request should include ingredient name, user_id, and type
-  // Response should include added ingredient
-app.post('/ingredients', cabinetRouter);
-
-// Route to remove ingredient to cabinet
-  // Request should include ingredient id
-  // Response should include removed ingredient
-app.post('/ingredients', cabinetRouter);
+app.use('/ingredients', cabinetRouter);
 
 // Route to search for recipe with ingredients selected
-  // Request should include ingredient names
-  // Response should include recipe names, pictures, and ids
-  // Response should
 app.post('/recipes', recipeRouter);
-
-// Route to receive access token from Google
-app.get('/auth', authRouter);
 
 // Route to receive user info from Google using access token
 app.get('/auth', authRouter);

@@ -35,11 +35,9 @@ module.exports = {
     host: 'localhost',
     port: 8080,
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        secure: false,
-        changeOrigin: false,
-      }
+      '/ingredients': 'http://localhost:3000', 
+      '/recipes': 'http://localhost:3000', 
+      '/auth': 'http://localhost:3000', 
     }
   },
   resolve: {
