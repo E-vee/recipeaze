@@ -9,6 +9,7 @@ const Cabinet = ({ user }) => {
   const [recipesArray, setRecipeArray] = useState([]);
 
   useEffect(() => {
+    console.log('user is: ', user)
     grabIngredients();
   }, []);
 

@@ -4,6 +4,7 @@ const ingredientController = {};
 
 ingredientController.getIngredients = (req, res, next) => {
   const userID = req.query.userID;
+  console.log('userID is: ', userID)
   const ingredientQuery = `
     SELECT name, _id
     FROM ingredients

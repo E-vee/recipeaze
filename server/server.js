@@ -20,23 +20,13 @@ app.use(express.static(path.resolve(__dirname, '../assets')));
 // Route to view current cabinet contents
 // Request should include userID
 // Response should return all ingredient names and ids where user_id is current user
-app.get('/ingredients', cabinetRouter);
-
-// Route to add ingredient to cabinet
-// Request should include ingredient name, user_id, and type
-// Response should include added ingredient
-app.post('/ingredients', cabinetRouter);
-
-// Route to remove ingredient to cabinet
-// Request should include ingredient id
-// Response should include removed ingredient
-app.post('/ingredients', cabinetRouter);
+app.use('/ingredients', cabinetRouter);
 
 // Route to search for recipe with ingredients selected
 // Request should include ingredient names
 // Response should include recipe names, pictures, and ids
 // Response should
-app.post('/recipes', recipeRouter);
+app.use('/recipes', recipeRouter);
 
 // Route to receive access token from Google
 // app.get('/auth', authRouter);
@@ -57,7 +47,6 @@ app.get('/requestInfo', async (req, res) => {
     // sub, name ,email
     try {
         const response = await axios({ method: 'get', url: requestInfo_url });
-        console.log(response);
         return res.status(200).send('hello');;
     } catch (err) {
         console.log(err);
