@@ -15,8 +15,27 @@ const Recipe = ({ name, img, id }) => {
       }
     })
       .then(data => {
-        setRecipe(data);
-        console.log('Update Recipe State', recipe)
+        console.log('Data from front end', data);
+        const instructions = document.createElement('p')
+        const text = document.createTextNode(data.data[0].strInstructions);
+        instructions.style.fontSize = "small"
+        instructions.appendChild(text);
+        const instructionsDiv = document.getElementById(id).childNodes[2].childNodes[1];
+        const ingredientsDiv = document.getElementById(id).childNodes[2].childNodes[0];
+        ingredientsDiv.style.fontSize = "small";
+        console.log(ingredientsDiv)
+        instructionsDiv.appendChild(instructions);
+        const detailButton = document.getElementById(id).childNodes[3];
+        detailButton.style.display = 'none';
+        for (let i = 0; i < 16; i++) {
+          if (data.data[0][('strIngredient' + i)]) {
+            console.log('hello')
+            const li = document.createElement('li');
+            li.innerHTML = data.data[0][("strMeasure" + i)] + (' of ') + data.data[0][('strIngredient' + i)];
+            ingredientsDiv.appendChild(li);
+
+          }
+        }
       })
       .catch((err) => {
         console.log('Error: ', err);
@@ -24,13 +43,18 @@ const Recipe = ({ name, img, id }) => {
   }
 
   return (
-    <div className="recipes" id={id}>
+    <div className="recipe" id={id}>
       <img src={img} className='recipe_img' />
       {name}
-      <button id="get_details_button" onClick={(e) => getDrinkDetails(e)}>
-        Get Drink Details</button>
-      {/* Here for the new component, CSS it to the right later */}
-      <Details recipe={recipe} />
+      <div className="recipe_details">
+        <div className="ingredients_section">
+
+        </div>
+        <div className="instructions_section" id="inst">
+
+        </div>
+      </div>
+      <button id="get_details_button" onClick={(e) => getDrinkDetails(e)}>Get Drink Details</button>
     </div>
   )
 }

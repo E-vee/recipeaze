@@ -42,7 +42,7 @@ recipeController.getDrinkDetails = (req, res, next) => {
     axios.get(cocktailAPI)
       .then(data => {
         console.log('Returned data for drink recipes', data.data.drinks)
-        res.locals.drinkData = data.drinks;
+        res.locals.drinkData = data.data.drinks;
         return next();
       })
       .catch((err) => {

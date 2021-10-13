@@ -71,8 +71,12 @@ const Cabinet = ({ user }) => {
       .then(response => {
         console.log(response.data)
         const recipes = [];
-        for (let i = 0; i < response.data.length; i += 1) {
-          recipes.push(<Recipe name={response.data[i].strDrink} img={response.data[i].strDrinkThumb} id={response.data[i].idDrink} />)
+        if (response.data !== 'None Found') {
+          for (let i = 0; i < response.data.length; i += 1) {
+            recipes.push(<Recipe name={response.data[i].strDrink} img={response.data[i].strDrinkThumb} id={response.data[i].idDrink} />)
+          }
+        } else {
+          alert('No recipes found!')
         }
         setRecipeArray(recipes)
       })
@@ -84,21 +88,18 @@ const Cabinet = ({ user }) => {
   return (
     <Router>
       <div id="cabinet_container">
-        cabinet
+        Cabinet
+        <div id="ingredient_container">
+          {ingredientsArray}
+        </div>
         <div id="form_container">
           <form className="form" onSubmit={handleOnSubmit}>
-            <input id="ingredient" type="text" placeholder="Please Enter Your Ingredient"></input>
-            <button id="add_ingredients" type="submit">Add Your Ingredients
-            </button>
+            <input id="ingredient" type="text" placeholder="Please Enter Your Ingredient..."></input>
+            <button id="add_ingredients" type="submit">Add to Cabinet!</button>
           </form>
-          <button onClick={() => search()}>Search Recipes</button>
+          <button id='search_button' onClick={() => search()}>Search Recipes</button>
         </div>
-        <div id="ingredient_list">
-          <ul>
-            {ingredientsArray}
-          </ul>
-        </div>
-        <div>
+        <div id="recipe_container">
           {recipesArray}
         </div>
       </div>

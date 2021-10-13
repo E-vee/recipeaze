@@ -1,16 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
+
 html {
-  background-color: rgba(147, 189, 236, 0.938);
-  width: 100%;
-  padding: 70px 0px 70px 0px;
-  margin: 0;
+  background: url('../assets/wood.png') repeat center center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  --primary-color: #F8D948;
+  --secondary-color: #959A9C;
+  --primary-font: 'Caveat', cursive;
+  margin: 0px;
+  padding: 0px;
+}
+
+html * {
+  font-family: var(--primary-font) !important;
 }
 
 body {
-  background: url('https://ctl.s6img.com/society6/img/KLVgHJ8OyNk3EnL__VaX-MnAlMQ/w_700/prints/~artwork/s6-original-art-uploads/society6/uploads/misc/bfca11dbed3549fe8707d20bf2913c47/~~/retro-cocktails565593-prints.jpg') no-repeat center center;
-  background-size: cover;
-  width: 100%;
-  padding: 70px 0px 70px 0px;
+  padding: 0;
   margin: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+#login_container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-top: 200px;
+}
+
+#login_button {
+  height: 50px;
+  width: 150px;
+  font-size: 28px;
+  padding: 0;
+  background-color: rgb(59, 59, 59);
+  color: white;
+  border: 0px solid;
+  box-shadow: 0px 6px 8px rgb(24, 24, 24);
+  text-shadow: 1px 1px black;
+}
+
+#main_container {
+  color: white !important;
+  padding: 80px 0px 40px 0px;
+  font-size: 72px;
+  text-shadow: 1px 1px black;
 }
 
 #container {
@@ -25,4 +64,121 @@ body {
 .recipe_img {
   width: 100px;
   height: auto;
+  box-shadow: 0px 3px 2px rgb(24, 24, 24);
+}
+
+#recipe_container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-content: center;
+  justify-items: center;
+}
+
+.recipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  height: 300px;
+  width: 300px;
+  font-size: 24px;
+  text-shadow: 1px 1px black;
+}
+
+#ingredient_container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-content: center;
+  justify-items: center;
+  padding: 0px 500px 0px 500px;
+  color: white !important;
+  text-shadow: 1px 1px black;
+  margin: 0px 0px 20px 0px;
+}
+
+.ingredient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  height: 80px;
+  width: 50px;
+  font-size: 36px;
+}
+
+#ingredient {
+  width: 148px;
+  height: 30px;
+  border: 0px;
+  padding: 0px 0px 0px 2px;
+  box-shadow: 0px 3px 2px rgb(24, 24, 24);
+  color: black;
+}
+
+#ingredient:focus {
+  outline: none;
+}
+
+#add_ingredients {
+  width: 150px;
+  height: 30px;
+  border: 0px;
+  padding: 0px;
+  background-color: rgb(59, 59, 59);
+  box-shadow: 0px 3px 2px rgb(24, 24, 24);
+  text-shadow: 0.5px 0.5px rgb(51, 51, 51);
+  color: white;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#search_button {
+  width: 300px;
+  height: 30px;
+  border: 0px;
+  padding: 0px;
+  background-color: rgb(59, 59, 59);
+  box-shadow: 0px 3px 2px rgb(24, 24, 24);
+  text-shadow: 0.5px 0.5px rgb(51, 51, 51);
+  color: white;
+  margin: 5px 0px 40px 0px;
+}
+
+#cabinet_container {
+  color: white;
+  font-size: 48px;
+  text-shadow: 1px 1px black;
+}
+
+#form_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#delete_ingredient {
+  width: 60px;
+  height: 20px;
+  border: 0px;
+  padding: 0px;
+  background-color: rgb(59, 59, 59);
+  box-shadow: 0px 3px 2px rgb(24, 24, 24);
+  text-shadow: 0.5px 0.5px rgb(51, 51, 51);
+  color: white;
+}
+
+#get_details_button {
+  width: 100px;
+  height: 20px;
+  border: 0px;
+  padding: 0px;
+  background-color: rgb(59, 59, 59);
+  box-shadow: 0px 3px 2px rgb(24, 24, 24);
+  text-shadow: 0.5px 0.5px rgb(51, 51, 51);
+  color: white;
 }
