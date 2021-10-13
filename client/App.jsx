@@ -15,14 +15,11 @@ const App = () => {
       <div id="main_container">Recipeaze</div>
       <Switch>
         <Route exact path="/">
-          <Login />
+          <Login setUser={setUser} />
         </Route>
-        <Route exact="/cabinet">
-          <Cabinet />
+        <Route path="/cabinet">
+          <Cabinet user={user} />
         </Route>
-        {/* <Route exact="/results">
-          <Results />
-        </Route> */}
       </Switch>
 
     </Router>

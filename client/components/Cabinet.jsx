@@ -1,28 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Link, useHistory, Route, BrowserRouter as Router } from 'react-router-dom';
 import Ingredient from './Ingredient';
 import axios from 'axios';
 
-const Cabinet = () => {
-  let history = useHistory();
-  const ingredientArray = [<Ingredient name="test" id='1' />];
+const Cabinet = ({ user }) => {
+  console.log(user)
+  console.log('id is: ', user.id)
+  const [ingredientsArray, setIngredientArray] = useState([]);
 
-  const handleRenderIngredients = () => {
-    // Invoked on:
-    // Login || Interval || Helper function ?
+  useEffect(() => {
+    grabIngredients();
+  }, ingredients);
+
+  // const toggleSelect = (e) => {
+  //   console.log(e);
+  // }
+  // let selected = selected? false : true;
+
+  const grabIngredients = () => {
+    axios({
+      method: 'get',
+      url: '/ingredients/view',
+      params: {
+        userID: user.id
+      }
+    })
+      .then(response => {
+        let ingredients = [];
+        for (let i = 0; i < response.data.length; i += 1) {
+          ingredients.push(<Ingredient name={response.data[i].name} id={response.data[i]._id} selected={false} />)
+        }
+        console.log(ingredients)
+        setIngredientArray(ingredients)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
   const handleOnSubmit = (e) => {
     e.preventDefault(); // Prevents page from refreshing
     const body = {
-      // account_id: userID,
-      ingredient_name: document.getElementById('ingredient').value
-    }
+      userID: user.id,
+      name: document.getElementById('ingredient').value,
+      genre: 'drink'
+    };
+    console.log('body', body)
     axios({
       method: 'post',
-      url: '/Add',
+      url: '/ingredients/add',
       data: body
-    }).
-      console.log('Your ingredient is :', body.ingredient_name);
+    })
+      .then(response => {
+        console.log(response.data[0])
+        // let ingredients = ingredientsArray.slice();
+        // ingredients.push(response.data[0]);
+        setIngredientArray(prevState => {
+          console.log(prevState);
+          prevState.push(<Ingredient name={response.data[0].name} id={response.data[0]._id} selected={false} />)
+        });
+      });
   }
 
   return (
@@ -38,8 +74,7 @@ const Cabinet = () => {
         </div>
         <div id="ingredient_list">
           <ul>
-            <Ingredient name="limes" id='1' />
-            {ingredientArray}
+            {ingredientsArray}
           </ul>
         </div>
       </div>

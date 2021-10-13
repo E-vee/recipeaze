@@ -16,3 +16,10 @@ CREATE TABLE ingredients (
 );
 
 ALTER TABLE ingredients ADD CONSTRAINT "ingredientslinkuser0" FOREIGN KEY ("user_id") REFERENCES  users("_id");
+
+
+INSERT INTO users (_id, name, email) VALUES (1, 'Omar', 'omar@omar.com');
+INSERT INTO users (_id, name, email) VALUES (2, 'Tre', 'tre@tre.org');
+INSERT INTO ingredients (name, genre, user_id) VALUES ('gin', 'drink', 1);
+INSERT INTO ingredients (name, genre, user_id) VALUES ('vodka', 'drink', 1);
+INSERT INTO ingredients (name, genre, user_id) VALUES ('limes', 'drink', 1);

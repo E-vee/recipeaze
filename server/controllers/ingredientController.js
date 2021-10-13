@@ -1,33 +1,32 @@
-const db = require('../models/models');
+const db = require('../models/recipeazeModel');
 
 const ingredientController = {};
 
 ingredientController.getIngredients = (req, res, next) => {
-  try {
-    const userID = req.params.userID;
-    const ingredientQuery = `
-      SELECT name, _id
-      FROM ingredients
-      WHERE user_id = ${userID}
-    `;
-    db.query(ingredientQuery)
+  const userID = req.query.userID;
+  const ingredientQuery = `
+    SELECT name, _id
+    FROM ingredients
+    WHERE user_id = ${userID}
+  `;
+  db.query(ingredientQuery)
     .then((data) => {
       res.locals.ingredients = data.rows;
       return next();
-    });
-  }
-  catch(err) {
-    return next({
-      log: `ERROR occurred in ingredientController.getIngredients`, 
-      message: {
-        err: 'ERROR occurred in ingredientController.getIngredients => Check server logs for details'
-      },
-    });
-  };
+    })
+    .catch((err) => {
+      return next({
+        log: `ERROR occurred in ingredientController.getIngredients`,
+        message: {
+          err: `ERROR occurred in ingredientController.getIngredients => ${err}`
+        },
+      })
+    })
 };
 
 ingredientController.addIngredient = (req, res, next) => {
   try {
+    console.log(req.body)
     const name = req.body.name;
     const userID = req.body.userID;
     const genre = req.body.genre;
@@ -35,18 +34,18 @@ ingredientController.addIngredient = (req, res, next) => {
       INSERT INTO ingredients
       (name, genre, user_id)
       VALUES
-      (${name}, ${genre}, ${userID})
-      RETURNING name
+      ('${name}', '${genre}', ${userID})
+      RETURNING name, _id
     `;
     db.query(ingredientAddQuery)
-    .then((data) => {
-      res.locals.addedIngredient = data.rows;
-      return next();
-    });
+      .then((data) => {
+        res.locals.addedIngredient = data.rows;
+        return next();
+      });
   }
-  catch(err) {
+  catch (err) {
     return next({
-      log: `ERROR occurred in ingredientController.addIngredient`, 
+      log: `ERROR occurred in ingredientController.addIngredient`,
       message: {
         err: 'ERROR occurred in ingredientController.addIngredient => Check server logs for details'
       },
@@ -63,14 +62,14 @@ ingredientController.removeIngredient = (req, res, next) => {
       RETURNING name
     `;
     db.query(ingredientRemoveQuery)
-    .then((data) => {
-      res.locals.removedIngredient = data.rows;
-      return next();
-    });
+      .then((data) => {
+        res.locals.removedIngredient = data.rows;
+        return next();
+      });
   }
-  catch(err) {
+  catch (err) {
     return next({
-      log: `ERROR occurred in ingredientController.removeIngredient`, 
+      log: `ERROR occurred in ingredientController.removeIngredient`,
       message: {
         err: 'ERROR occurred in ingredientController.removeIngredient => Check server logs for details'
       },
