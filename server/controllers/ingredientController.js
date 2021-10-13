@@ -59,7 +59,7 @@ ingredientController.removeIngredient = (req, res, next) => {
     const ingredientRemoveQuery = `
       DELETE FROM ingredients
       WHERE _id = ${ingredientID}
-      RETURNING name
+      RETURNING name, _id
     `;
     db.query(ingredientRemoveQuery)
       .then((data) => {

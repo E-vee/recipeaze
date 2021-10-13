@@ -1,3 +1,28 @@
 html {
-  background-color: blue;
+  background-color: rgba(147, 189, 236, 0.938);
+  width: 100%;
+  padding: 70px 0px 70px 0px;
+  margin: 0;
+}
+
+body {
+  background: url('https://ctl.s6img.com/society6/img/KLVgHJ8OyNk3EnL__VaX-MnAlMQ/w_700/prints/~artwork/s6-original-art-uploads/society6/uploads/misc/bfca11dbed3549fe8707d20bf2913c47/~~/retro-cocktails565593-prints.jpg') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  padding: 70px 0px 70px 0px;
+  margin: 0;
+}
+
+#container {
+  text-align: center;
+  position: relative;
+  font-family: sans-serif;
+  font-size: 2em;
+  letter-spacing: 4px;
+  overflow: hidden;
+}
+
+.recipe_img {
+  width: 100px;
+  height: auto;
 }
