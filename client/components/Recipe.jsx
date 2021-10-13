@@ -23,6 +23,7 @@ const Recipe = ({ name, img, id }) => {
         const instructionsDiv = document.getElementById(id).childNodes[2].childNodes[1];
         const ingredientsDiv = document.getElementById(id).childNodes[2].childNodes[0];
         ingredientsDiv.style.fontSize = "small";
+        ingredientsDiv.style.textAlign = "left";
         console.log(ingredientsDiv)
         instructionsDiv.appendChild(instructions);
         const detailButton = document.getElementById(id).childNodes[3];
