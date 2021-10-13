@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
+const axios = require('axios');
 const cabinetRouter = require('./routes/cabinetRouter');
 const recipeRouter = require('./routes/recipeRouter');
 const authRouter = require('./routes/authRouter');
@@ -38,10 +39,21 @@ app.post('/ingredients', cabinetRouter);
 app.post('/recipes', recipeRouter);
 
 // Route to receive access token from Google
-app.get('/auth', authRouter);
+// app.get('/auth', authRouter);
+const googleClientID = process.env.CLIENT_ID;
+const oauth_url = `https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20profile%20email&response_type=token&redirect_uri=http://localhost:8080&client_id=${googleClientID}`
 
-// Route to receive user info from Google using access token
-app.get('/auth', authRouter);
+app.get('/requestToken', async (req, res) => {
+    console.log('in auth');
+    res.redirect(oauth_url);
+    // try {
+    //     const response = await axios.post(oauth_url);
+    //     console.log(response);
+    // } catch (err) {
+    //     console.log('error in oauth', err);
+    // }
+    // return next();
+});
 
 // Route to serve bundled assets in production mode
 if (process.env.NODE_ENV === 'production') {
@@ -63,11 +75,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
-
-
-
-
-
 
 
 

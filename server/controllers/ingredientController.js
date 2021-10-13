@@ -1,4 +1,4 @@
-const db = require('../models/models');
+const db = require('../models/recipeazeModel');
 
 const ingredientController = {};
 
@@ -11,14 +11,14 @@ ingredientController.getIngredients = (req, res, next) => {
       WHERE user_id = ${userID}
     `;
     db.query(ingredientQuery)
-    .then((data) => {
-      res.locals.ingredients = data.rows;
-      return next();
-    });
+      .then((data) => {
+        res.locals.ingredients = data.rows;
+        return next();
+      });
   }
-  catch(err) {
+  catch (err) {
     return next({
-      log: `ERROR occurred in ingredientController.getIngredients`, 
+      log: `ERROR occurred in ingredientController.getIngredients`,
       message: {
         err: 'ERROR occurred in ingredientController.getIngredients => Check server logs for details'
       },
@@ -39,14 +39,14 @@ ingredientController.addIngredient = (req, res, next) => {
       RETURNING name
     `;
     db.query(ingredientAddQuery)
-    .then((data) => {
-      res.locals.addedIngredient = data.rows;
-      return next();
-    });
+      .then((data) => {
+        res.locals.addedIngredient = data.rows;
+        return next();
+      });
   }
-  catch(err) {
+  catch (err) {
     return next({
-      log: `ERROR occurred in ingredientController.addIngredient`, 
+      log: `ERROR occurred in ingredientController.addIngredient`,
       message: {
         err: 'ERROR occurred in ingredientController.addIngredient => Check server logs for details'
       },
@@ -63,14 +63,14 @@ ingredientController.removeIngredient = (req, res, next) => {
       RETURNING name
     `;
     db.query(ingredientRemoveQuery)
-    .then((data) => {
-      res.locals.removedIngredient = data.rows;
-      return next();
-    });
+      .then((data) => {
+        res.locals.removedIngredient = data.rows;
+        return next();
+      });
   }
-  catch(err) {
+  catch (err) {
     return next({
-      log: `ERROR occurred in ingredientController.removeIngredient`, 
+      log: `ERROR occurred in ingredientController.removeIngredient`,
       message: {
         err: 'ERROR occurred in ingredientController.removeIngredient => Check server logs for details'
       },
