@@ -5,7 +5,7 @@ import axios from 'axios';
 const Login = ({ setUser }) => {
   let history = useHistory();
   const handleClick = () => {
-    // history.push('/auth/requestToken')
+    setUser({ name: 'Omar', id: 1 })
     history.push("/cabinet");
   };
 

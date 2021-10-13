@@ -3,9 +3,9 @@ const axios = require('axios');
 const recipeController = {};
 
 recipeController.getDrinks = (req, res, next) => {
-  try {
-    const ingredients = req.params.ingredients;
-    let cocktailAPI = 'www.thecocktaildb.com/api/json/v1/1/filter.php?i='
+    const ingredients = req.headers.ingredients.split(',');
+    console.log('in getDrinks controller method', typeof ingredients, ingredients)
+    let cocktailAPI = 'http://thecocktaildb.com/api/json/v2/9973533/filter.php?i='
     for (let i = 0; i < ingredients.length; i += 1) {
       ingredients[i].replace(' ', '_');
       cocktailAPI += ingredients[i];
@@ -13,22 +13,23 @@ recipeController.getDrinks = (req, res, next) => {
         cocktailAPI += ',';
       }
     }
-    axios.get(cocktailAPI)
-    .then(response => response.json())
+    console.log('checking API endpoint', cocktailAPI);
+    axios({
+      method: 'get',
+      url: cocktailAPI,
+     })
     .then(data => {
-      console.log(data)
-      res.locals.drinks = data.rows;
+      res.locals.drinks = data.data.drinks;
       return next();
     })
-  }
-  catch(err) {
-    return next({
-      log: `ERROR occurred in recipeController.getDrinks`, 
-      message: {
-        err: 'ERROR occurred in recipeController.getDrinks => Check server logs for details'
-      },
-    });
-  };
+    .catch(err => {
+      return next({
+        log: `ERROR occurred in recipeController.getDrinks`, 
+        message: {
+          err: 'ERROR occurred in recipeController.getDrinks => Check server logs for details'
+        },
+      });
+    })
 };
 
 recipeController.getDrinkDetails = (req, res, next) => {
