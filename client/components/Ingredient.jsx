@@ -32,8 +32,8 @@ const Ingredient = ({ name, id, setIngredientArray }) => {
   }
 
   return (
-    <div className="ingredients" id={id}>
-      <li>{name}</li>
+    <div className="ingredient" id={id}>
+      {name}
       <button id="delete_ingredient" onClick={() => deleteIngredient()}>Delete</button>
     </div>
   )

@@ -9,9 +9,8 @@ const Login = ({ setUser }) => {
   };
 
   return (
-    <div id="login_container">Login Page
-      <button id="login_button" type="submit"
-        onClick={handleClick}> Log In </button>
+    <div id="login_container">
+      <button id="login_button" type="submit" onClick={handleClick}> Log In </button>
     </div>
   );
 };
