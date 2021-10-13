@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Switch, Link, useHistory, Route, BrowserRouter as Router } from 'react-router-dom';
 import Ingredient from './Ingredient';
+import Recipe from './Recipe';
 import axios from 'axios';
 
 const Cabinet = ({ user }) => {
-  console.log(user)
-  console.log('id is: ', user.id)
   const [ingredientsArray, setIngredientArray] = useState([]);
+  const [recipesArray, setRecipeArray] = useState([]);
 
   useEffect(() => {
     grabIngredients();
-  }, ingredients);
-
-  // const toggleSelect = (e) => {
-  //   console.log(e);
-  // }
-  // let selected = selected? false : true;
+  }, []);
 
   const grabIngredients = () => {
     axios({
@@ -25,18 +20,18 @@ const Cabinet = ({ user }) => {
         userID: user.id
       }
     })
-      .then(response => {
-        let ingredients = [];
-        for (let i = 0; i < response.data.length; i += 1) {
-          ingredients.push(<Ingredient name={response.data[i].name} id={response.data[i]._id} selected={false} />)
-        }
-        console.log(ingredients)
-        setIngredientArray(ingredients)
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    .then(response => {
+      const ingredients = [];
+      for (let i = 0; i < response.data.length; i += 1) {
+        ingredients.push(<Ingredient name={response.data[i].name} id={response.data[i]._id} setIngredientArray={setIngredientArray}/>)
+      }
+      setIngredientArray(ingredients)
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
+
   const handleOnSubmit = (e) => {
     e.preventDefault(); // Prevents page from refreshing
     const body = {
@@ -44,23 +39,48 @@ const Cabinet = ({ user }) => {
       name: document.getElementById('ingredient').value,
       genre: 'drink'
     };
-    console.log('body', body)
     axios({
       method: 'post',
       url: '/ingredients/add',
       data: body
     })
-      .then(response => {
-        console.log(response.data[0])
-        // let ingredients = ingredientsArray.slice();
-        // ingredients.push(response.data[0]);
-        setIngredientArray(prevState => {
-          console.log(prevState);
-          prevState.push(<Ingredient name={response.data[0].name} id={response.data[0]._id} selected={false} />)
-        });
-      });
+    .then(response => {
+      setIngredientArray([...ingredientsArray, <Ingredient name={response.data[0].name} id={response.data[0]._id} setIngredientArray={setIngredientArray}/>])
+      // setIngredientArray(prevState => {
+      //   prevState.push(<Ingredient name={response.data[0].name} id={response.data[0]._id} setIngredientArray={setIngredientArray}/>);
+      //   return prevState;
+      // })
+    })
+    .catch(err => {
+      console.log(err)
+    });
   }
 
+  const search = () => {
+    let selectedIngredients = [];
+    for (let i = 0; i < ingredientsArray.length; i++) {
+      selectedIngredients.push(ingredientsArray[i].props.name);
+    };
+    axios({
+      method: 'get',
+      url: '/recipes/getDrinks',
+      headers: {
+        ingredients: selectedIngredients
+      }
+    })
+    .then(response => {
+      console.log(response.data)
+      const recipes = [];
+      for (let i =0; i < response.data.length; i += 1) {
+        recipes.push(<Recipe name={response.data[i].strDrink} img={response.data[i].strDrinkThumb} id={response.data[i].idDrink}/>)
+      }
+      setRecipeArray(recipes)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+  
   return (
     <Router>
       <div id="cabinet_container">
@@ -71,11 +91,15 @@ const Cabinet = ({ user }) => {
             <button id="add_ingredients" type="submit">Add Your Ingredients
             </button>
           </form>
+          <button onClick={() => search()}>Search Recipes</button>
         </div>
         <div id="ingredient_list">
           <ul>
             {ingredientsArray}
           </ul>
+        </div>
+        <div> 
+            {recipesArray}
         </div>
       </div>
     </Router>

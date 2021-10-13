@@ -20,7 +20,7 @@ app.use(express.static(path.resolve(__dirname, '../assets')));
 app.use('/ingredients', cabinetRouter);
 
 // Route to search for recipe with ingredients selected
-app.post('/recipes', recipeRouter);
+app.use('/recipes', recipeRouter);
 
 // Route to receive user info from Google using access token
 app.get('/auth', authRouter);
