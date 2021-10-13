@@ -20,16 +20,16 @@ const Cabinet = ({ user }) => {
         userID: user.id
       }
     })
-    .then(response => {
-      const ingredients = [];
-      for (let i = 0; i < response.data.length; i += 1) {
-        ingredients.push(<Ingredient name={response.data[i].name} id={response.data[i]._id} setIngredientArray={setIngredientArray}/>)
-      }
-      setIngredientArray(ingredients)
-    })
-    .catch(err => {
-      console.log(err);
-    });
+      .then(response => {
+        const ingredients = [];
+        for (let i = 0; i < response.data.length; i += 1) {
+          ingredients.push(<Ingredient name={response.data[i].name} id={response.data[i]._id} setIngredientArray={setIngredientArray} />)
+        }
+        setIngredientArray(ingredients)
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   const handleOnSubmit = (e) => {
@@ -44,16 +44,16 @@ const Cabinet = ({ user }) => {
       url: '/ingredients/add',
       data: body
     })
-    .then(response => {
-      setIngredientArray([...ingredientsArray, <Ingredient name={response.data[0].name} id={response.data[0]._id} setIngredientArray={setIngredientArray}/>])
-      // setIngredientArray(prevState => {
-      //   prevState.push(<Ingredient name={response.data[0].name} id={response.data[0]._id} setIngredientArray={setIngredientArray}/>);
-      //   return prevState;
-      // })
-    })
-    .catch(err => {
-      console.log(err)
-    });
+      .then(response => {
+        setIngredientArray([...ingredientsArray, <Ingredient name={response.data[0].name} id={response.data[0]._id} setIngredientArray={setIngredientArray} />])
+        // setIngredientArray(prevState => {
+        //   prevState.push(<Ingredient name={response.data[0].name} id={response.data[0]._id} setIngredientArray={setIngredientArray}/>);
+        //   return prevState;
+        // })
+      })
+      .catch(err => {
+        console.log(err)
+      });
   }
 
   const search = () => {
@@ -68,19 +68,19 @@ const Cabinet = ({ user }) => {
         ingredients: selectedIngredients
       }
     })
-    .then(response => {
-      console.log(response.data)
-      const recipes = [];
-      for (let i =0; i < response.data.length; i += 1) {
-        recipes.push(<Recipe name={response.data[i].strDrink} img={response.data[i].strDrinkThumb} id={response.data[i].idDrink}/>)
-      }
-      setRecipeArray(recipes)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+      .then(response => {
+        console.log(response.data)
+        const recipes = [];
+        for (let i = 0; i < response.data.length; i += 1) {
+          recipes.push(<Recipe name={response.data[i].strDrink} img={response.data[i].strDrinkThumb} id={response.data[i].idDrink} />)
+        }
+        setRecipeArray(recipes)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
-  
+
   return (
     <Router>
       <div id="cabinet_container">
@@ -98,8 +98,8 @@ const Cabinet = ({ user }) => {
             {ingredientsArray}
           </ul>
         </div>
-        <div> 
-            {recipesArray}
+        <div>
+          {recipesArray}
         </div>
       </div>
     </Router>
