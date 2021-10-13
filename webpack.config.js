@@ -16,21 +16,32 @@ module.exports = {
                 options: {
                     presets: ['@babel/env', '@babel/react'],
                 },
-                compress: true,
-                hot: true,
-                historyApiFallback: true,
-                host: 'localhost',
-                port: 8080,
-                proxy: {
-                    '/ingredients': 'http://localhost:3000',
-                    '/recipes': 'http://localhost:3000',
-                    '/requestToken': 'http://localhost:3000',
-                    '/requestInfo': 'http://localhost:3000',
-                }
             },
-            resolve: {
-                extensions: ['.js', '.jsx'],
+            {
+                test: /css$/,
+                exclude: /node_modules/,
+                use: ['style-loader', 'css-loader',]
             },
-        ]
-    }
+        ],
+    },
+    devServer: {
+        static: {
+            directory: path.resolve(__dirname, 'client'),
+            publicPath: '/',
+        },
+        compress: true,
+        hot: true,
+        historyApiFallback: true,
+        host: 'localhost',
+        port: 8080,
+        proxy: {
+            '/ingredients': 'http://localhost:3000',
+            '/recipes': 'http://localhost:3000',
+            '/requestToken': 'http://localhost:3000',
+            '/requestInfo': 'http://localhost:3000',
+        }
+    },
+    resolve: {
+        extensions: ['.js', '.jsx'],
+    },
 };

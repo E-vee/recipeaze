@@ -41,19 +41,28 @@ app.post('/recipes', recipeRouter);
 // Route to receive access token from Google
 // app.get('/auth', authRouter);
 const googleClientID = process.env.CLIENT_ID;
-const oauth_url = `https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20profile%20email&response_type=token&redirect_uri=http://localhost:8080&client_id=${googleClientID}`
+const requestToken_url = `https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20profile%20email&response_type=token&redirect_uri=http://localhost:8080&client_id=${googleClientID}`
 
 app.get('/requestToken', async (req, res) => {
     console.log('in auth');
-    res.redirect(oauth_url);
-    // try {
-    //     const response = await axios.post(oauth_url);
-    //     console.log(response);
-    // } catch (err) {
-    //     console.log('error in oauth', err);
-    // }
-    // return next();
+    res.redirect(requestToken_url);
 });
+
+app.get('/requestInfo', async (req, res) => {
+    console.log('in requestInfo');
+    const access_token = req.headers.authorization;
+    console.log(access_token);
+    const requestInfo_url = `https://openidconnect.googleapis.com/v1/userinfo?access_token=${access_token}`
+
+    // sub, name ,email
+    try {
+        const response = await axios({ method: 'get', url: requestInfo_url });
+        console.log(response);
+        return res.status(200).send('hello');;
+    } catch (err) {
+        console.log(err);
+    }
+})
 
 // Route to serve bundled assets in production mode
 if (process.env.NODE_ENV === 'production') {
