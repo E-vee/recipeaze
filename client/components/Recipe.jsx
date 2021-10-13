@@ -16,7 +16,7 @@ const Recipe = ({ name, img, id }) => {
     })
       .then(data => {
         setRecipe(data);
-
+        console.log('Update Recipe State', recipe)
       })
       .catch((err) => {
         console.log('Error: ', err);
@@ -30,7 +30,7 @@ const Recipe = ({ name, img, id }) => {
       <button id="get_details_button" onClick={(e) => getDrinkDetails(e)}>
         Get Drink Details</button>
       {/* Here for the new component, CSS it to the right later */}
-      {/* <Details /> */}
+      <Details recipe={recipe} />
     </div>
   )
 }
